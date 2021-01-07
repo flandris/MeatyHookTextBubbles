@@ -1,0 +1,34 @@
+
+#textBox {
+    background-color: transparent;
+	border: 1px dotted transparent;
+	color: #278e29;
+	font-size: 30;
+	height:45px;
+	width: 40px;
+	resize: none;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+#userBox{
+    position: fixed; 
+    bottom:0%;
+	font-size: 30;
+    height:90px;
+	width: 400px;
+    background-color: gray;
+	color: red;
+	opacity: 1;
+}
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+#volumeSlider {
+	position:absolute;
+	bottom: 10%;
+}

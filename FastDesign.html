@@ -1,0 +1,98 @@
+<!-- Just a fast prototype to see design and test browser streaming -->
+<html>
+<head>
+<link rel="stylesheet", type="text/css", href="MeatDesign.css">
+</head>
+<body>
+	<div><textarea id="textBox"></textarea></li></div>
+	<div id ="volumeSlider">
+		<input type="range" min="0.0" max="1.0" value="0.5" step="0.1" class="slider" id="myRange">
+		<label for="volume">Volume</label>
+	</div>
+	<div><textarea id="userBox" placeholder="Write here..."></textarea></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
+<script>
+	var volumeVal = parseFloat(document.getElementById("myRange").value);
+    var sound = new Howl({
+      src: ['media/animalese.wav'],
+      volume: volumeVal,
+	});
+	var slider = document.getElementById("myRange");
+
+	slider.oninput = function() {
+		var volumeVal = parseFloat(this.value);
+		sound.volume(volumeVal);
+	}
+</script>
+
+<script>
+var timer;
+let userInput = document.getElementById( 'textBox' );
+let userInputBox = document.getElementById( 'userBox' );
+let savedLength = 0;
+let i = 0;
+const speed = 115;
+const MAX_WIDTH = 400;
+var area = document.querySelector("textarea");
+let boxWidth = (parseFloat(window.getComputedStyle(area).getPropertyValue("width")));
+const START_BOX_WIDTH = (parseFloat(window.getComputedStyle(area).getPropertyValue("width")));
+const MAX_HEIGHT = 2*(parseFloat(window.getComputedStyle(area).getPropertyValue("height")));
+
+document.addEventListener('keydown', function(event) {
+    if(event.key == "Enter") {
+		userInput.style.border = "1px dotted green";
+		userInput.style.backgroundColor = "#8f3530";
+        typeWriter(userInputBox.value);
+    }
+});
+function resetSize() {
+	clearInterval(timer);
+	userInput.value = "";
+	userInputBox.value = "";
+	textBox.style.width = START_BOX_WIDTH + "px";
+	boxWidth = START_BOX_WIDTH;
+	textBox.style.height = MAX_HEIGHT / 2;
+	i=0;
+	userInput.style.border = "1px dotted transparent";
+	userInput.style.backgroundColor = "transparent";
+}
+
+<!-- Needs better resizing, also small bug on boxWidth it goes to 420px -->
+function expand(textbox){
+	if(boxWidth >= MAX_WIDTH){
+		if(textBox.style.height != MAX_HEIGHT)
+		textBox.style.height = MAX_HEIGHT +"px";
+		return;
+	}
+	else if(userInput.value.length > savedLength){
+		boxWidth = boxWidth + 20;
+		textBox.style.width = boxWidth + "px";
+	}
+	else if(userInput.value.length < savedLength){
+		boxWidth = boxWidth - 20;
+		textBox.style.width = boxWidth + "px";
+	}
+	savedLength = userInput.value.length;
+}
+
+function typeWriter(string) {
+	if (i < string.length) {
+		userInput.value += string.charAt(i);
+		if (!sound.playing())
+			sound.play();
+		expand(userInput);
+		i++;
+		setTimeout(
+		function() {typeWriter(string) 
+		}, speed);
+	}
+	else {
+		timer = setInterval(resetSize, 3000);
+		sound.stop()
+	}
+}
+</script>
+</body>
+</html>
