@@ -14,21 +14,28 @@ textarea:focus{
 }
 
 #userBox{
-    position: fixed; 
-    bottom:0%;
 	font-size: 30;
     height:90px;
 	width: 400px;
     background-color: gray;
 	color: red;
 	opacity: 1;
-}
-ul {
-	list-style-type: none;
-	padding: 0;
+	margin-top: auto;
 }
 
-#volumeSlider {
+.controlrow {
 	position:absolute;
-	bottom: 10%;
+	display:flex;
+}
+
+.bottompanel {
+	position: absolute;
+	display:flex;
+	flex-direction:column nowrap;
+	bottom:10%;
+}
+
+.panelitem {
+	display: flex;
+	margin-top: auto;
 }
