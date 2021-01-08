@@ -16,7 +16,7 @@ textarea:focus{
 #userBox{
 	font-size: 30;
     height:90px;
-	width: 400px;
+	width: 400px; resize: none;
     background-color: gray;
 	color: red;
 	opacity: 1;
@@ -38,4 +38,4 @@ textarea:focus{
 .panelitem {
 	display: flex;
 	margin-top: auto;
-}
+}#rsz {  position: absolute;  left: 380;  bottom: 70;  width: 20px;  height: 20px;  background-color: rgba(0, 80, 255, 0.5);}

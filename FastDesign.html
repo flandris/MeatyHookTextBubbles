@@ -23,6 +23,7 @@
 			</div>
 		</div>	
 		<div><textarea id="userBox" placeholder="Write here..."></textarea></div>
+		<div id="rsz"></div> <!-- change1 (also last part in css) -->
 	</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
@@ -114,10 +115,44 @@
 			}, speed);
 		}
 		else {
-			timer = setInterval(resetSize, 3000);
+			timer = setInterval(resetSize, 3700);
 			sound.stop()
 		}
 	}
+	<!-- change2 (you edit for other things) -->
+	var
+		<!-- whatever = document.querySelector("#you can use this here and make it work for anything, just set it on click"), -->
+		TxtBxwd = 400, TxtBxht = 90,
+		x, y, dx, dy;
+		
+	var startResize = function(evt)
+	{
+		x = evt.screenX;
+		y = evt.screenY;
+	};
+	
+	var resize = function(evt)
+	{
+		dx = evt.screenX - x;
+		dy = evt.screenY - y;
+		x = evt.screenX;
+		y = evt.screenY;
+		TxtBxwd += dx;
+		TxtBxht -= dy;
+		userBox.style.width = TxtBxwd;
+		userBox.style.height = TxtBxht;
+		rsz.style.left = TxtBxwd-20;
+		rsz.style.bottom = TxtBxht-20;
+	};
+	
+	rsz.addEventListener("mousedown", function(evt) {
+		startResize(evt);
+		document.body.addEventListener("mousemove", resize);
+		document.body.addEventListener("mousemove", resize);
+		document.body.addEventListener("mouseup", function() {
+			document.body.removeEventListener("mousemove", resize);
+		});
+	});
 </script>
 </body>
 </html>
